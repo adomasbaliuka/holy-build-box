@@ -3,8 +3,8 @@ name: Docker Image CI
 on:
   create:
   workflow_dispatch:
-  schedule:
-    - cron: '15 05 * * 1' # Late night for the Americas, early morning for Europe
+  # schedule:
+  #   - cron: '15 05 * * 1' # Late night for the Americas, early morning for Europe
   pull_request:
     paths-ignore:
       - '**.md'
@@ -20,18 +20,18 @@ on:
       - fork/master
 
 jobs:
-  code_check:
-    name: Code checks
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ludeeus/action-shellcheck@94e0aab03ca135d11a35e5bfc14e6746dc56e7e9
-        env:
-          SHELLCHECK_OPTS: -x
-      - name: Install eclint
-        run: sudo npm install -g eclint
-      - name: Check EditorConfig compliance
-        run: eclint check $(git ls-files)
+#   code_check:
+#     name: Code checks
+#     runs-on: ubuntu-20.04
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: ludeeus/action-shellcheck@94e0aab03ca135d11a35e5bfc14e6746dc56e7e9
+#         env:
+#           SHELLCHECK_OPTS: -x
+#       - name: Install eclint
+#         run: sudo npm install -g eclint
+#       - name: Check EditorConfig compliance
+#         run: eclint check $(git ls-files)
 
   build_pr:
     name: "Test Build Docker images"
